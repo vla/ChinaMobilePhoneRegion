@@ -1,0 +1,11 @@
+language: csharp
+mono: none
+sudo: required
+dist: trusty
+dotnet: 2.1.301
+addons:
+  branches:
+    - master
+script:
+  - dotnet restore
+  - dotnet test /test/MobilePhoneRegionTest
