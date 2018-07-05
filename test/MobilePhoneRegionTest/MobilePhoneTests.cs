@@ -56,5 +56,20 @@ namespace MobilePhoneRegionTest
 
             dataSource.Dispose();
         }
+
+        [Fact]
+        public void Check_ALL_Match_Inner_DataSource()
+        {
+            var filename = Path.Combine(AppContext.BaseDirectory, "phones.txt");
+            var data = Helper.GetPhoneList(filename).ToArray();
+
+            var searcher = MobilePhoneFactory.GetSearcher();
+            SearchResult result;
+            foreach (var info in data)
+            {
+                result = searcher.Search(info.Phone);
+                Assert.True(result.Success);
+            }
+        }
     }
 }

@@ -25,10 +25,12 @@
 
   <ItemGroup>
     <None Remove="ChinaAdCode.txt" />
+    <None Remove="MobilePhoneRegion.dat" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="ChinaAdCode.txt" />
+    <EmbeddedResource Include="MobilePhoneRegion.dat" />
   </ItemGroup>
 
 

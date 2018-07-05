@@ -8,6 +8,17 @@ namespace MobilePhoneRegion
     /// </summary>
     public class MobilePhoneFactory
     {
+        private static Lazy<IDataSource> LoadInnerDataSource = new Lazy<IDataSource>(() =>
+        {
+            var t = typeof(MobilePhoneFactory);
+            var name = $"{t.Namespace}.MobilePhoneRegion.dat";
+
+            using (var stream = t.Assembly.GetManifestResourceStream(name))
+            {
+                return new MemoryDataSource(stream);
+            }
+        });
+
         /// <summary>
         /// 生成手机归属地数据源
         /// </summary>
@@ -25,6 +36,25 @@ namespace MobilePhoneRegion
                     new Internal.V2.Generator(data).Write(stream);
                     break;
             }
+        }
+
+        /// <summary>
+        /// 获取内部数据源
+        /// </summary>
+        /// <returns>IDataSource</returns>
+        public static IDataSource GetInnerDataSource()
+        {
+            return LoadInnerDataSource.Value;
+        }
+
+        /// <summary>
+        /// 获取号码归属地查询器
+        /// </summary>
+        /// <returns><see cref="ISearcher"/></returns>
+        /// <exception cref="FileLoadException">Invalid file version</exception>
+        public static ISearcher GetSearcher()
+        {
+            return GetSearcher(GetInnerDataSource());
         }
 
         /// <summary>
