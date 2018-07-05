@@ -21,6 +21,9 @@ namespace MobilePhoneRegion
                 case Version.V1:
                     new Internal.V1.Generator(data).Write(stream);
                     break;
+                case Version.V2:
+                    new Internal.V2.Generator(data).Write(stream);
+                    break;
             }
         }
 
@@ -40,6 +43,9 @@ namespace MobilePhoneRegion
                 {
                     case Version.V1:
                         return new Internal.V1.Searcher(dataSource);
+
+                    case Version.V2:
+                        return new Internal.V2.Searcher(dataSource);
                 }
             }
 

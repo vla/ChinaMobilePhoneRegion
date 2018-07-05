@@ -15,7 +15,7 @@ namespace Generator
 
             using (var fs = File.Create(dest))
             {
-                MobilePhoneFactory.Generate(MobilePhoneRegion.Version.V1, GetPhoneList(filename).ToArray(), fs);
+                MobilePhoneFactory.Generate(MobilePhoneRegion.Version.V2, GetPhoneList(filename).ToArray(), fs);
             }
 
             Console.WriteLine("done.");
