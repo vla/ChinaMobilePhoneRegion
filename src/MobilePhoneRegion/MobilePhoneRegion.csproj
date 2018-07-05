@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\build\common.props" />
+  
+  <PropertyGroup>
+    <AssemblyName>MobilePhoneRegion</AssemblyName>
+    <AssemblyTitle>MobilePhoneRegion</AssemblyTitle>
+    <PackageId>ChinaMobilePhoneRegion</PackageId>
+    <TargetFrameworks>netstandard1.3;netstandard2.0;net40;</TargetFrameworks>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+
+
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard1.3' OR '$(TargetFramework)' == 'netstandard2.0' ">
+    <DefineConstants>$(DefineConstants);NETSTANDARD</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'net40' OR '$(TargetFramework)' == 'net45' ">
+    <DefineConstants>$(DefineConstants);NETFULL</DefineConstants>
+  </PropertyGroup>
+
+
+</Project>
