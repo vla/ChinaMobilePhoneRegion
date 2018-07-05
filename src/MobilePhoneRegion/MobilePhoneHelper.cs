@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 namespace MobilePhoneRegion
 {
@@ -31,6 +28,55 @@ namespace MobilePhoneRegion
                  || CM_Expression.IsMatch(input)
                  || CU_Expression.IsMatch(input)
                  || CT_Expression.IsMatch(input);
+        }
+
+        /// <summary>
+        /// 手机归属地查询
+        /// </summary>
+        /// <param name="searcher"><see cref="ISearcher"/></param>
+        /// <param name="mobilePhone">中国手机号码</param>
+        /// <param name="info">手机归属地信息</param>
+        /// <returns>是否匹配成功</returns>
+        public static bool TryGet(this ISearcher searcher, string mobilePhone, out MobilePhone info)
+        {
+            info = null;
+
+            if (string.IsNullOrWhiteSpace(mobilePhone))
+                return false;
+
+            if (mobilePhone.Length < 7)
+                return false;
+
+            if (IsMobilePhone(mobilePhone))
+            {
+                if (mobilePhone.Length > 7)
+                {
+                    mobilePhone = mobilePhone.Substring(0, 7);
+                }
+
+                if (int.TryParse(mobilePhone, out int number))
+                {
+                    var result = searcher.Search(number);
+
+                    if (result.Success)
+                    {
+                        var adCode = ChinaAdCode.Get(result.AdCode);
+
+                        info = new MobilePhone
+                        {
+                            Phone = number,
+                            AdCode = result.AdCode,
+                            Isp = result.Isp,
+                            CityCode = adCode.CityCode,
+                            ZipCode = adCode.ZipCode,
+                            Area = adCode.Province + adCode.City
+                        };
+
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
     }
 }
