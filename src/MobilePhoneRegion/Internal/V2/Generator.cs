@@ -7,7 +7,7 @@ using System.Text;
 namespace MobilePhoneRegion.Internal.V2
 {
     /**
-        文件存储结构
+        文件存储结构 v2
 
         头部区
         +------------+------------------+

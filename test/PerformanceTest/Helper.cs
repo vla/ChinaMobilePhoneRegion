@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading.Tasks;
 using MobilePhoneRegion;
 
 namespace PerformanceTest
@@ -11,6 +12,50 @@ namespace PerformanceTest
     class Helper
     {
         public static void Time(string name, Action action, int iteration = 1)
+        {
+            TimeExecute(name, (act) =>
+            {
+                for (int i = 0; i < iteration; i++) act();
+
+            }, action, iteration);
+        }
+
+
+        public static void TimeWithThread(string name, Action action, int task = 1, int iteration = 1)
+        {
+            TimeExecute(name, (act) =>
+            {
+                var tasks = new Task[task];
+                var taskCount = iteration / tasks.Length;
+
+                for (int i = 0; i < tasks.Length; i++)
+                {
+                    tasks[i] = Task.Run(() =>
+                    {
+                        for (int x = 0; x < taskCount; x++)
+                        {
+                            act();
+                        }
+                    });
+                };
+
+                Task.WaitAll(tasks);
+
+            }, action, iteration);
+        }
+
+        public static void TimeWithParallel(string name, Action action, int iteration = 1)
+        {
+            TimeExecute(name, (act) =>
+            {
+                Parallel.For(0, iteration, l =>
+                {
+                    act();
+                });
+            }, action, iteration);
+        }
+
+        private static void TimeExecute(string name, Action<Action> inner, Action action, int iteration = 1)
         {
             ConsoleColor currentForeColor = Console.ForegroundColor;
             Console.ForegroundColor = ConsoleColor.Yellow;
@@ -24,18 +69,21 @@ namespace PerformanceTest
             }
 
             Stopwatch watch = new Stopwatch();
-            watch.Start();
+
             ulong cycleCount = GetCycleCount();
-            for (int i = 0; i < iteration; i++) action();
-            ulong cpuCycles = GetCycleCount() - cycleCount;
+            watch.Start();
+
+            inner(action);
+
             watch.Stop();
+            ulong cpuCycles = GetCycleCount() - cycleCount;
 
             Console.ForegroundColor = currentForeColor;
             Console.WriteLine("\tIterations:\t" + iteration);
-            Console.WriteLine("\tTime Elapsed:\t" + watch.Elapsed.TotalMilliseconds.ToString("N0") + "ms");
+            Console.WriteLine("\tTime Elapsed:\t" + watch.Elapsed.TotalMilliseconds + "ms");
             Console.WriteLine("\tPer Second:\t" + (iteration / watch.Elapsed.TotalSeconds).ToString("N0"));
             Console.WriteLine("\tCPU Cycles:\t" + cpuCycles.ToString("N0"));
-            Console.WriteLine("\tMemory:\t" + FormatBytesToString(Process.GetCurrentProcess().WorkingSet64));
+            Console.WriteLine("\tMemory:\t\t" + FormatBytesToString(Process.GetCurrentProcess().WorkingSet64));
 
             for (int i = 0; i <= GC.MaxGeneration; i++)
             {
@@ -90,7 +138,7 @@ namespace PerformanceTest
             return bytes + "Byte";
         }
 
-        static IList<MobilePhone> GetPhoneList(string filename)
+        internal static IList<MobilePhone> GetPhoneList(string filename)
         {
             var list = new List<MobilePhone>();
 
