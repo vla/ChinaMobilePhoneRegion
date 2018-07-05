@@ -7,5 +7,5 @@ addons:
   branches:
     - master
 script:
-  - dotnet restore
-  - dotnet test /test/MobilePhoneRegionTest
+  - dotnet restore test/MobilePhoneRegionTest
+  - dotnet test test/MobilePhoneRegionTest
