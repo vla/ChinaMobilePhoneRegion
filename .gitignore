@@ -3,7 +3,6 @@
 [Dd]ebug/
 [Rr]elease/
 x64/
-build/
 app.publish/
 [Bb]in/
 [Oo]bj/

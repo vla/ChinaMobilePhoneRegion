@@ -1,0 +1,23 @@
+<Project>
+  <Import Project="version.props" />
+
+  <PropertyGroup>
+    <Description>One can query the phone number attribution library package</Description>
+    <Product>china phone number attribution</Product>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>git://github.com/vla/ChinaMobilePhoneRegion</RepositoryUrl>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+    <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)sign.snk</AssemblyOriginatorKeyFile>
+    <SignAssembly>true</SignAssembly>
+    <PublicSign Condition="'$(OS)' != 'Windows_NT'">true</PublicSign>
+
+    <Authors>v.la@live.cn</Authors>
+    <PackageTags>PhoneAttribution;MobilePhoneLocation;MobilePhoneAttribution</PackageTags>
+    <PackageIconUrl>http://s.gravatar.com/avatar/28dfa5190889f7190e74b683fc30b827?s=80</PackageIconUrl>
+    <PackageProjectUrl>https://github.com/vla/ChinaMobilePhoneRegion</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/vla/ChinaMobilePhoneRegion/blob/master/LICENSE</PackageLicenseUrl>
+  </PropertyGroup>
+
+</Project>
