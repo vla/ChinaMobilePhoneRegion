@@ -19,14 +19,14 @@ Performance
 
 I7-6700K 32G DDR4
 
-单条查询`0.0042ms`，以下为`2000w`调用性能：
+单条查询`0.0042ms`，以下为`20 million`调用性能：
 
 
  Kind    | Total Time   | Per Second |
 ---------|--------------|:-----------|
-1 thread | 7815.7194ms  | 250W+
-4 threads| 2356.6162ms  | 840W+
-parallel | 2111.2532ms  | 940w+
+1 thread | 7815.7194ms  | 250m+
+4 threads| 2356.6162ms  | 840m+
+parallel | 2111.2532ms  | 940m+
 
 Usage
 ---
