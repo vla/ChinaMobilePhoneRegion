@@ -24,10 +24,18 @@ namespace MobilePhoneRegion
 
         public MemoryDataSource(Stream stream)
         {
-            using (var mem = new MemoryStream())
+            if (stream.CanSeek)
             {
-                stream.CopyTo(mem);
-                DataSource = mem.ToArray();
+                DataSource = new byte[stream.Length];
+                stream.Read(DataSource, 0, DataSource.Length);
+            }
+            else
+            {
+                using (var mem = new MemoryStream())
+                {
+                    stream.CopyTo(mem);
+                    DataSource = mem.ToArray();
+                }
             }
         }
 
