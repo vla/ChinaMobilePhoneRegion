@@ -116,11 +116,8 @@ namespace MobilePhoneRegion.Internal.V2
                 }
             }
 
-            //最后一条递增数大于0的需要写入
-            if (prev.GetSkip() > 0)
-            {
-                Write(bw, prev);
-            }
+            //写入最后一条
+            Write(bw, prev);
         }
 
         private void PrepareHead(BinaryWriter bw)

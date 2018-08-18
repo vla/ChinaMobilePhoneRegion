@@ -119,11 +119,8 @@ namespace MobilePhoneRegion.Internal.V1
             }
 
             //最后一条递增数大于0的需要写入
-            if (prev.GetSkip() > 0)
-            {
-                Write(bw, prev);
-                ++idxPhone;
-            }
+            Write(bw, prev);
+            ++idxPhone;
 
             return idxPhone;
         }
