@@ -16,6 +16,15 @@ namespace MobilePhoneRegionTest
 
             var result = searcher.TryGet("17093318888", out MobilePhone info);
             Assert.True(result);
+
+            result = searcher.TryGet("16677408888", out info);
+            Assert.True(result);
+
+            result = searcher.TryGet("19893318888", out info);
+            Assert.True(result);
+
+            result = searcher.TryGet("19999798888", out info);
+            Assert.True(result);
         }
     }
 }
