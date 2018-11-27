@@ -17,7 +17,8 @@
     <PackageTags>PhoneAttribution;MobilePhoneLocation;MobilePhoneAttribution</PackageTags>
     <PackageIconUrl>http://s.gravatar.com/avatar/28dfa5190889f7190e74b683fc30b827?s=80</PackageIconUrl>
     <PackageProjectUrl>https://github.com/vla/ChinaMobilePhoneRegion</PackageProjectUrl>
-    <PackageLicenseUrl>https://github.com/vla/ChinaMobilePhoneRegion/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageLicenseType>MIT</PackageLicenseType>
   </PropertyGroup>
 
 </Project>
