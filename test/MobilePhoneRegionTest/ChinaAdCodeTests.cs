@@ -18,6 +18,13 @@ namespace MobilePhoneRegionTest
         }
 
         [Fact]
+        public void Can_Match_ZipCode()
+        {
+            var info = ChinaAdCode.GetByZipCode("519000");
+            Assert.True(info.Any());
+        }
+
+        [Fact]
         public void Can_Match_CityCode()
         {
             var info = ChinaAdCode.GetByCityCode("020");
@@ -37,10 +44,6 @@ namespace MobilePhoneRegionTest
                     while (!string.IsNullOrEmpty((line = sr.ReadLine())))
                     {
                         var values = line.Split('|');
-
-                        if (values.Length != 9)
-                            continue;
-
                         var id = int.Parse(values[0]);
                         var parentid = int.Parse(values[1]);
                         var level = int.Parse(values[2]);
@@ -49,7 +52,8 @@ namespace MobilePhoneRegionTest
                         var district = values[5];
                         var lng = double.Parse(values[6]);
                         var lat = double.Parse(values[7]);
-                        var citycode = values[8];
+                        var cityCode = values[8];
+                        var zipCode = values[9];
 
                         var info = ChinaAdCode.Get(id);
 
@@ -60,6 +64,9 @@ namespace MobilePhoneRegionTest
                         Assert.Equal(district, info.District);
                         Assert.Equal(lng, info.Lng);
                         Assert.Equal(lat, info.Lat);
+                        Assert.Equal(cityCode, info.CityCode);
+                        Assert.Equal(zipCode, info.ZipCode);
+                        
                     }
                 }
             }

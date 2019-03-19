@@ -65,7 +65,7 @@ namespace MobilePhoneRegion
                             AdCode = result.AdCode,
                             Isp = result.Isp,
                             CityCode = adCode.CityCode,
-                            ZipCode = result.ZipCode,
+                            ZipCode = adCode.ZipCode,
                             Area = adCode.Province + adCode.City
                         };
 

@@ -11,6 +11,7 @@ namespace MobilePhoneRegion
     {
         private static Dictionary<int, ChinaAdCode> Dict_AreaCode;
         private static Dictionary<string, IList<ChinaAdCode>> Dict_CityCode;
+        private static Dictionary<string, IList<ChinaAdCode>> Dict_ZipCode;
         private static Dictionary<string, IList<ChinaAdCode>> Dict_Province;
 
         static ChinaAdCode()
@@ -27,6 +28,21 @@ namespace MobilePhoneRegion
         {
             Dict_AreaCode.TryGetValue(areacode, out ChinaAdCode code);
             return code;
+        }
+
+        /// <summary>
+        /// 根据邮政编码获取信息
+        /// </summary>
+        /// <param name="zipcode">邮政编码</param>
+        /// <returns><see cref="ChinaAdCode"/></returns>
+        public static IEnumerable<ChinaAdCode> GetByZipCode(string zipcode)
+        {
+            if (Dict_ZipCode.TryGetValue(zipcode, out var list))
+            {
+                return list;
+            }
+
+            return Enumerable.Empty<ChinaAdCode>();
         }
 
         /// <summary>
@@ -124,9 +140,6 @@ namespace MobilePhoneRegion
                     {
                         var values = line.Split('|');
 
-                        if (values.Length != 9)
-                            continue;
-
                         ChinaAdCode info = new ChinaAdCode
                         {
                             Id = int.Parse(values[0]),
@@ -137,7 +150,8 @@ namespace MobilePhoneRegion
                             District = values[5],
                             Lng = double.Parse(values[6]),
                             Lat = double.Parse(values[7]),
-                            CityCode = values[8]
+                            CityCode = values[8],
+                            ZipCode = values[9]
                         };
 
                         lstAdCode.Add(info);
@@ -148,6 +162,7 @@ namespace MobilePhoneRegion
             //建立查询索引
             Dict_AreaCode = new Dictionary<int, ChinaAdCode>(lstAdCode.Count);
             Dict_CityCode = new Dictionary<string, IList<ChinaAdCode>>();
+            Dict_ZipCode = new Dictionary<string, IList<ChinaAdCode>>();
             Dict_Province = new Dictionary<string, IList<ChinaAdCode>>();
 
             foreach (var entity in lstAdCode)
@@ -175,6 +190,18 @@ namespace MobilePhoneRegion
                     else
                     {
                         Dict_CityCode.Add(entity.CityCode, new[] { entity }.ToList());
+                    }
+                }
+
+                if (!string.IsNullOrWhiteSpace(entity.ZipCode))
+                {
+                    if (Dict_ZipCode.TryGetValue(entity.ZipCode, out var list))
+                    {
+                        list.Add(entity);
+                    }
+                    else
+                    {
+                        Dict_ZipCode.Add(entity.ZipCode, new[] { entity }.ToList());
                     }
                 }
             }

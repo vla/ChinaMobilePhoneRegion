@@ -14,12 +14,7 @@
         /// 行政区域编码
         /// </summary>
         public int AdCode { get; set; }
-
-        /// <summary>
-        /// 邮政编码
-        /// </summary>
-        public string ZipCode { get; set; }
-
+        
         /// <summary>
         /// 运营商信息
         /// </summary>

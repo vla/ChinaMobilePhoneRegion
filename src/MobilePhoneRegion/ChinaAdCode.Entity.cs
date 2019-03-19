@@ -60,6 +60,11 @@
         /// </summary>
         public string CityCode { get; set; } = string.Empty;
 
+        /// <summary>
+        /// 邮政编码
+        /// </summary>
+        public string ZipCode { get; set; } = string.Empty;
+
 
         /// <summary>
         /// Returns a <see cref="System.String" /> that represents this instance.
@@ -69,7 +74,7 @@
         /// </returns>
         public override string ToString()
         {
-            return $"省份:{Province},城市:{City},区县:{District},固话区号:{CityCode}";
+            return $"省份:{Province},城市:{City},区县:{District},固话区号:{CityCode},邮政编码:{ZipCode}";
         }
     }
 }
