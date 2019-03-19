@@ -11,7 +11,6 @@ namespace MobilePhoneRegion
     {
         private static Dictionary<int, ChinaAdCode> Dict_AreaCode;
         private static Dictionary<string, IList<ChinaAdCode>> Dict_CityCode;
-        private static Dictionary<string, IList<ChinaAdCode>> Dict_ZipCode;
         private static Dictionary<string, IList<ChinaAdCode>> Dict_Province;
 
         static ChinaAdCode()
@@ -28,21 +27,6 @@ namespace MobilePhoneRegion
         {
             Dict_AreaCode.TryGetValue(areacode, out ChinaAdCode code);
             return code;
-        }
-
-        /// <summary>
-        /// 根据邮政编码获取信息
-        /// </summary>
-        /// <param name="zipcode">邮政编码</param>
-        /// <returns><see cref="ChinaAdCode"/></returns>
-        public static IEnumerable<ChinaAdCode> GetByZipCode(string zipcode)
-        {
-            if (Dict_ZipCode.TryGetValue(zipcode, out var list))
-            {
-                return list;
-            }
-
-            return Enumerable.Empty<ChinaAdCode>();
         }
 
         /// <summary>
@@ -140,7 +124,7 @@ namespace MobilePhoneRegion
                     {
                         var values = line.Split('|');
 
-                        if (values.Length != 13)
+                        if (values.Length != 9)
                             continue;
 
                         ChinaAdCode info = new ChinaAdCode
@@ -148,16 +132,12 @@ namespace MobilePhoneRegion
                             Id = int.Parse(values[0]),
                             ParentId = int.Parse(values[1]),
                             Level = int.Parse(values[2]),
-                            Name = values[3],
-                            ShortName = values[4],
-                            Province = values[5],
-                            City = values[6],
-                            District = values[7],
-                            Lng = double.Parse(values[8]),
-                            Lat = double.Parse(values[9]),
-                            CityCode = values[10],
-                            ZipCode = values[11],
-                            PinYin = values[12]
+                            Province = values[3],
+                            City = values[4],
+                            District = values[5],
+                            Lng = double.Parse(values[6]),
+                            Lat = double.Parse(values[7]),
+                            CityCode = values[8]
                         };
 
                         lstAdCode.Add(info);
@@ -168,7 +148,6 @@ namespace MobilePhoneRegion
             //建立查询索引
             Dict_AreaCode = new Dictionary<int, ChinaAdCode>(lstAdCode.Count);
             Dict_CityCode = new Dictionary<string, IList<ChinaAdCode>>();
-            Dict_ZipCode = new Dictionary<string, IList<ChinaAdCode>>();
             Dict_Province = new Dictionary<string, IList<ChinaAdCode>>();
 
             foreach (var entity in lstAdCode)
@@ -196,18 +175,6 @@ namespace MobilePhoneRegion
                     else
                     {
                         Dict_CityCode.Add(entity.CityCode, new[] { entity }.ToList());
-                    }
-                }
-
-                if (!string.IsNullOrWhiteSpace(entity.ZipCode))
-                {
-                    if (Dict_ZipCode.TryGetValue(entity.ZipCode, out var list))
-                    {
-                        list.Add(entity);
-                    }
-                    else
-                    {
-                        Dict_ZipCode.Add(entity.ZipCode, new[] { entity }.ToList());
                     }
                 }
             }

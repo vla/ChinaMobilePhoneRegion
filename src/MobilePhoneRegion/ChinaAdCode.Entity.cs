@@ -16,19 +16,19 @@
         public int ParentId { get; set; }
 
         /// <summary>
-        /// 地区级别，如 0国家 1省份、2城市、3区县
+        /// 地区级别，如 1省份、2城市、3区县
         /// </summary>
         public int Level { get; set; }
 
         /// <summary>
-        /// 名称
+        /// 完整名称
         /// </summary>
-        public string Name { get; set; } = string.Empty;
+        public string Name {
+            get {
 
-        /// <summary>
-        /// 短名称
-        /// </summary>
-        public string ShortName { get; set; } = string.Empty;
+                return $"{Province} {City} {District}".Trim();
+            }
+        }
 
         /// <summary>
         /// 省份
@@ -60,15 +60,6 @@
         /// </summary>
         public string CityCode { get; set; } = string.Empty;
 
-        /// <summary>
-        /// 邮政编码
-        /// </summary>
-        public string ZipCode { get; set; } = string.Empty;
-
-        /// <summary>
-        /// 拼音
-        /// </summary>
-        public string PinYin { get; set; } = string.Empty;
 
         /// <summary>
         /// Returns a <see cref="System.String" /> that represents this instance.
@@ -78,7 +69,7 @@
         /// </returns>
         public override string ToString()
         {
-            return $"省份:{Province},城市:{City},区县:{District},固话区号:{CityCode},邮政编码:{ZipCode}";
+            return $"省份:{Province},城市:{City},区县:{District},固话区号:{CityCode}";
         }
     }
 }
