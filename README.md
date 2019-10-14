@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/vla/ChinaMobilePhoneRegion.svg?branch=master)](https://travis-ci.org/vla/ChinaMobilePhoneRegion)
 
 
-高性能中国手机号码归属地查询库，内置36万个号码段，文件压缩后只有1MB不到。
+高性能中国手机号码归属地查询库，内置43万个号码段，文件压缩后只有1MB。
 
 提供内存及IO加载方式查询，建议装载到内存上查询性能更高。
 
