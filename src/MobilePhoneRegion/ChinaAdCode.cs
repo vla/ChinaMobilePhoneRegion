@@ -20,6 +20,33 @@ namespace MobilePhoneRegion
         }
 
         /// <summary>
+        /// 获取所有行政区域信息
+        /// </summary>
+        /// <returns></returns>
+        public static IEnumerable<ChinaAdCode> GetAll()
+        {
+            return Dict_AreaCode.Values;
+        }
+
+        /// <summary>
+        /// 获取省份所有行政区域信息
+        /// </summary>
+        /// <returns></returns>
+        public static IEnumerable<IList<ChinaAdCode>> GetProvinceList()
+        {
+            return Dict_Province.Values;
+        }
+
+        /// <summary>
+        /// 获取城市所有行政区域信息
+        /// </summary>
+        /// <returns></returns>
+        public static IEnumerable<IList<ChinaAdCode>> GetCityList()
+        {
+            return Dict_CityCode.Values;
+        }
+
+        /// <summary>
         /// 根据行政编码获取信息
         /// </summary>
         /// <param name="areacode">行政编码</param>
