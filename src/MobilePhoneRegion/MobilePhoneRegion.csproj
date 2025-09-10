@@ -3,6 +3,8 @@
 	<Import Project="..\..\build\common.props" />
 
 	<PropertyGroup>
+		<Version>$(Ver)</Version>
+		<PackageVersion>$(Ver)</PackageVersion>
 		<AssemblyName>MobilePhoneRegion</AssemblyName>
 		<AssemblyTitle>MobilePhoneRegion</AssemblyTitle>
 		<PackageId>ChinaMobilePhoneRegion</PackageId>
