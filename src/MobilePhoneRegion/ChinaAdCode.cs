@@ -29,6 +29,15 @@ namespace MobilePhoneRegion
         }
 
         /// <summary>
+        /// 获取所有省份
+        /// </summary>
+        /// <returns></returns>
+        public static IEnumerable<string> GetProvince()
+        {
+            return Dict_Province.Keys;
+        }
+
+        /// <summary>
         /// 获取省份所有行政区域信息
         /// </summary>
         /// <returns></returns>
